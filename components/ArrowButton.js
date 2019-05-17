@@ -4,6 +4,7 @@ import { TouchableOpacity, Text, View, StyleSheet, Platform } from 'react-native
 export default class ArrowButton extends React.Component {
   render () {
     const { handlePress, alt } = this.props
+
     return (
       <TouchableOpacity style={styles.buttonContainer} onPress={handlePress}>
         {!alt && <Text style={styles.nextSymbol}>{'>'}</Text>}

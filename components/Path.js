@@ -7,7 +7,7 @@ import text from '../TEXT.js'
 export default class Selection extends React.Component {
   render () {
     const { options, handlePress } = this.props;
-    console.log(options[0])
+
     return (
       <View style={styles.container}>
         <View style={styles.option}>

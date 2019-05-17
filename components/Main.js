@@ -1,5 +1,5 @@
 import React from 'react'
-import { Animated, View, StyleSheet } from 'react-native'
+import { Animated, View, Text, StyleSheet, Platform } from 'react-native'
 import { LinearGradient } from 'expo'
 
 import Title from './Title.js'
@@ -8,26 +8,28 @@ import Selection from './Selection.js'
 import Path from './Path.js'
 
 const storyMap = [
-  { view: 'reader', chapter: 'chapter1', nextView: 1 }, // Index 0 = Intro Chapter
+  { view: 'reader', chapter: 'chapter1', nextView: 1 },
   {
     view: 'selection',
     options: [
       { index: 2, chapter: 'chapter2' },
-      { index: 2, chapter: 'chapter2' },
-      { index: 2, chapter: 'chapter2' },
+      { index: 3, chapter: 'chapter3' },
+      { index: 4, chapter: 'chapter4' },
     ],
-  }, // Index 1 = Selection 1
-  { view: 'reader', chapter: 'chapter2', nextView: 3 }, // Index 2 = Chapter 1
+  },
+  { view: 'reader', chapter: 'chapter2', nextView: 3 },
+  { view: 'reader', chapter: 'chapter3', nextView: 4 },
+  { view: 'reader', chapter: 'chapter4', nextView: 5 },
   {
     view: 'path',
     options: [
-      { index: 4, chapter: 'chapter1', symbol: 'circle' },
-      { index: 4, chapter: 'chapter1', symbol: 'circle' },
+      { index: 6, chapter: 'chapter5', symbol: 'circle' },
+      { index: 7, chapter: 'chapter6', symbol: 'circle' },
     ],
-  }, // Index 3 = Path decision 1
-  { view: 'reader', chapter: 'chapter1', nextView: 5 }, // Index 4 = Chapter 2
-  { view: 'reader', chapter: 'chapter2', nextView: 6 }, // Index 5 = Chapter 3
-  { view: 'end' }, // Index 6 = End
+  },
+  { view: 'reader', chapter: 'chapter5', nextView: 7 },
+  { view: 'reader', chapter: 'chapter6', nextView: 8 },
+  { view: 'end' },
 ]
 
 export default class Main extends React.Component {
@@ -35,43 +37,31 @@ export default class Main extends React.Component {
     super(props)
     this.state = { view: 'title' }
     this.mainViewOpacity = new Animated.Value(1)
-    // this.state = {
-    //   view: 'selection',
-    //   options: [
-    //     { index: 2, chapter: 'chapter2' },
-    //     { index: 2, chapter: 'chapter2' },
-    //     { index: 2, chapter: 'chapter2' },
-    //   ],
-    // }
+    this.fadeTimeout = 0
     this.handlePress = this.handlePress.bind(this)
     this.fadeMainView = this.fadeMainView.bind(this)
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      Animated.timing(
-        this.mainViewOpacity,
-        {
-          toValue: 0,
-          duration: 1,
-        }
-      ).start()
-      setTimeout(() => this.fadeMainView(1), 5)
+    this.fadeTimeout = setTimeout(() => {
+      this.fadeMainView(0, 1)
+      setTimeout(() => this.fadeMainView(1, 4600), 5)
       this.setState(storyMap[0])
     } , 8000)
   }
 
-  fadeMainView(opacityValue) {
+  fadeMainView(opacityValue, duration = 400) {
     Animated.timing(
       this.mainViewOpacity,
       {
         toValue: opacityValue,
-        duration: 500,
+        duration: duration,
       }
     ).start()
   }
 
-  handlePress(storyMapIndex) {
+  handlePress(storyMapIndex, cancelFadeTimeout) {
+    if (cancelFadeTimeout) { clearTimeout(this.fadeTimeout) }
     this.fadeMainView(0)
     setTimeout(() => {
       this.setState(storyMap[storyMapIndex])
@@ -80,6 +70,8 @@ export default class Main extends React.Component {
   }
 
   render () {
+    const { view, chapter, nextView, options } = this.state
+
     return (
       <View style={styles.container}>
         <LinearGradient
@@ -89,27 +81,34 @@ export default class Main extends React.Component {
           end={[1, 1]}
         >
           <Animated.View style={{ opacity: this.mainViewOpacity }}>
-            {this.state.view === 'title' && (
+            {view === 'title' && (
               <Title handlePress={this.handlePress}/>
             )}
-            {this.state.view === 'reader' && (
+            {view === 'reader' && (
               <Reader
-                chapter={this.state.chapter}
-                nextView={this.state.nextView}
+                chapter={chapter}
+                nextView={nextView}
                 handlePress={this.handlePress}
               />
             )}
-            {this.state.view === 'selection' && (
+            {view === 'selection' && (
               <Selection
-                options={this.state.options}
+                options={options}
                 handlePress={this.handlePress}
               />
             )}
-            {this.state.view === 'path' && (
+            {view === 'path' && (
               <Path
-                options={this.state.options}
+                options={options}
                 handlePress={this.handlePress}
               />
+            )}
+            {view === 'end' && (
+              <View style={styles.endTextContainer}>
+                <Text style={styles.endText}>E</Text>
+                <Text style={styles.endText}>N</Text>
+                <Text style={styles.endText}>D</Text>
+              </View>
             )}
           </Animated.View>
         </LinearGradient>
@@ -126,5 +125,20 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  endTextContainer: {
+    shadowOffset: { width: 45, height: 55, },
+    shadowColor: 'black',
+    shadowOpacity: .7,
+    flexDirection: 'row',
+  },
+  endText: {
+    shadowOffset: { height: 1, },
+    shadowColor: 'black',
+    shadowOpacity: .2,
+    margin: 10,
+    color: '#fff',
+    fontSize: 18,
+    fontFamily: (Platform.OS === 'ios') ? 'System' : 'sans-serif-light',
   }
 })

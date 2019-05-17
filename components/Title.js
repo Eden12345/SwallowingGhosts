@@ -62,7 +62,7 @@ export default class Title extends React.Component {
     const { handlePress } = this.props
 
     return (
-      <TouchableWithoutFeedback onPress={() => handlePress(0)}>
+      <TouchableWithoutFeedback onPress={() => handlePress(0, true)}>
       <View style={{ ...styles.backdrop }}>
         <View style={styles.row}>
         {'SWALLOWING'.split('').map((letter, i) => (
@@ -96,7 +96,7 @@ export default class Title extends React.Component {
 
 const styles = StyleSheet.create({
   backdrop: {
-    shadowOffset: { width: 55, height: 65, },
+    shadowOffset: { width: 45, height: 55, },
     shadowColor: 'black',
     shadowOpacity: .7,
   },

@@ -7,6 +7,7 @@ import text from '../TEXT.js'
 export default class Selection extends React.Component {
   render () {
     const { options, handlePress } = this.props;
+
     return (
       <View style={styles.container}>
         {options.map((option, i) => (
@@ -14,7 +15,7 @@ export default class Selection extends React.Component {
             <ArrowButton handlePress={() => handlePress(option.index)}/>
             <View style={styles.optionTextGroup}>
               <Text style={styles.dateText}>
-                Date: 7-11-2049
+                {`Date: 7-${i * 3}-${i === 1 ? 2053 : 2049 - i}`}
               </Text>
               <Text style={styles.previewText}>
                 {text[option.chapter].content.slice(0, 80) + '...'}

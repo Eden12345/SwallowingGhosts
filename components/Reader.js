@@ -11,6 +11,7 @@ export default class Reader extends React.Component {
 
   render () {
     const { handlePress, nextView } = this.props;
+
     return (
       <ScrollView
         style={styles.scroller}
