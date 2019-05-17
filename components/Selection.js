@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   optionTextGroup: {
-    marginLeft: 20,
+    marginLeft: 30,
     width: 200,
     justifyContent: 'flex-start',
   },

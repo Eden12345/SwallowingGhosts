@@ -1,12 +1,13 @@
 import React from 'react'
-import { TouchableOpacity, Text, StyleSheet, Platform } from 'react-native'
+import { TouchableOpacity, Text, View, StyleSheet, Platform } from 'react-native'
 
 export default class ArrowButton extends React.Component {
   render () {
-    const { handleClick } = this.props
+    const { handleClick, alt } = this.props
     return (
       <TouchableOpacity style={styles.buttonContainer} onPress={handleClick}>
-        <Text style={styles.buttonSymbol}>{'>'}</Text>
+        {!alt && <Text style={styles.nextSymbol}>{'>'}</Text>}
+        {alt && <View style={styles.imageSymbol}></View>}
       </TouchableOpacity>
     )
   }
@@ -14,17 +15,29 @@ export default class ArrowButton extends React.Component {
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    height: 100,
-    width: 100,
+    height: 80,
+    width: 80,
     borderRadius: 50,
     borderWidth: 2,
     borderColor: '#000',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  buttonSymbol: {
+  nextSymbol: {
+    position: 'relative',
+    left: 2,
     color: '#000',
     fontSize: 18,
     fontFamily: (Platform.OS === 'ios') ? 'System' : 'sans-serif-light',
+  },
+  imageSymbol: {
+    height: 20,
+    width: 20,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderTopColor: 'transparent',
+    borderBottomColor: 'transparent',
+    borderLeftColor: '#000',
+    borderRightColor: '#000',
   }
 })

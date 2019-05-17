@@ -5,6 +5,7 @@ import { LinearGradient } from 'expo'
 import Title from './Title.js'
 import Reader from './Reader.js'
 import Selection from './Selection.js'
+import Path from './Path.js'
 
 const storyMap = [
   { view: 'reader', chapter: 'chapter1', nextView: 1 }, // Index 0 = Intro Chapter
@@ -19,8 +20,10 @@ const storyMap = [
   { view: 'reader', chapter: 'chapter2', nextView: 3 }, // Index 2 = Chapter 1
   {
     view: 'path',
-    optionOne: { index: 4, symbol: 'circle' },
-    optionTwo: { index: 4, symbol: 'circle' },
+    options: [
+      { index: 4, chapter: 'chapter1', symbol: 'circle' },
+      { index: 4, chapter: 'chapter1', symbol: 'circle' },
+    ],
   }, // Index 3 = Path decision 1
   { view: 'reader', chapter: 'chapter1', nextView: 5 }, // Index 4 = Chapter 2
   { view: 'reader', chapter: 'chapter2', nextView: 6 }, // Index 5 = Chapter 3
@@ -30,13 +33,12 @@ const storyMap = [
 export default class Main extends React.Component {
   constructor (props) {
     super(props)
-    // this.state = { view: 'title' }
-    this.state = { view: 'reader', chapter: 'chapter1', nextView: 1 }
+    this.state = { view: 'title' }
     this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
-    // setTimeout(() => this.setState(storyMap[0]), 8000)
+    setTimeout(() => this.setState(storyMap[0]), 8000)
   }
 
   handleClick(storyMapIndex) {
@@ -48,7 +50,7 @@ export default class Main extends React.Component {
       <View style={styles.container}>
         <LinearGradient
           style={styles.gradient}
-          colors={['#ffffff', '#bfbfbf']}
+          colors={['#ffffff', '#a6a6a6']}
           start={[0, 0]}
           end={[1, 1]}
         >
@@ -62,6 +64,12 @@ export default class Main extends React.Component {
           )}
           {this.state.view === 'selection' && (
             <Selection
+              options={this.state.options}
+              handleClick={this.handleClick}
+            />
+          )}
+          {this.state.view === 'path' && (
+            <Path
               options={this.state.options}
               handleClick={this.handleClick}
             />
