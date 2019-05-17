@@ -19,14 +19,16 @@ const storyMap = [
   { view: 'end' }, // Index 6 = End
 ]
 
-export default class App extends React.Component {
+export default class Main extends React.Component {
   constructor (props) {
     super(props)
-    this.state = { view: 'title', text: 'hey' }
+    // this.state = { view: 'title', text: 'hey' }
+    this.state = { view: 'reader', chapter: 'chapter1', nextView: 2 }
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
-    setTimeout(() => this.setState(storyMap[0]), 7000)
+    // setTimeout(() => this.setState(storyMap[0]), 8000)
   }
 
   handleClick(storyMapIndex) {

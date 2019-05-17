@@ -1,23 +1,51 @@
 import React from 'react'
-import { ScrollView, Text, StyleSheet, Platform } from 'react-native'
+import { ScrollView, View, Text, StyleSheet, Platform } from 'react-native'
 
+import ArrowButton from './ArrowButton.js'
 import text from '../TEXT.js'
 
-export default class App extends React.Component {
+export default class Reader extends React.Component {
+  componentDidUpdate() {
+    this.scroller.scrollTo({ y: 0, animated: false })
+  }
+
   render () {
+    const { handleClick, nextView } = this.props;
     return (
-      <ScrollView style={styles.container}>
-        <Text style={styles.text}>{text[this.props.chapter]}</Text>
+      <ScrollView
+        style={styles.scroller}
+        ref={node => this.scroller = node }
+      >
+        <View style={styles.container}>
+          <Text style={styles.chapterTitle}>
+            {text[this.props.chapter].title}
+          </Text>
+          <Text style={styles.chapterContent}>
+            {text[this.props.chapter].content}
+          </Text>
+          <ArrowButton handleClick={() => handleClick(nextView)}  />
+        </View>
       </ScrollView>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  scroller: {
     flex: 1,
   },
-  text: {
+  container: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 70,
+  },
+  chapterTitle: {
+    marginTop: 120,
+    color: '#000',
+    fontSize: 18,
+    fontFamily: (Platform.OS === 'ios') ? 'System' : 'sans-serif-light',
+  },
+  chapterContent: {
     marginVertical: 70,
     marginLeft: 30,
     marginRight: 30,

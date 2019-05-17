@@ -33,7 +33,7 @@ export default class Title extends React.Component {
             duration: 1200,
           }
         ).start()
-      }, 3000 + (i * 200))
+      }, 4000 + (i * 200))
     });
 
     'GHOSTS'.split('').forEach((letter, i) => {
@@ -54,7 +54,7 @@ export default class Title extends React.Component {
             duration: 1200,
           }
         ).start()
-      }, 1200 + 3000 + (i * 200))
+      }, 1200 + 4000 + (i * 200))
     });
   }
 
@@ -63,7 +63,10 @@ export default class Title extends React.Component {
       <View style={{ ...styles.backdrop }}>
         <View style={styles.row}>
         {'SWALLOWING'.split('').map((letter, i) => (
-          <Animated.View style={{ ...styles.textContainer, opacity: this[letter + i] }} key={letter + i}>
+          <Animated.View
+            style={{ ...styles.textContainer, opacity: this[letter + i] }}
+            key={letter + i}
+          >
             <Text style={styles.text}>
               {letter}
             </Text>
@@ -72,7 +75,10 @@ export default class Title extends React.Component {
         </View>
         <View style={styles.row}>
         {'GHOSTS'.split('').map((letter, i) => (
-          <Animated.View style={{ ...styles.textContainer, opacity: this[letter + i] }} key={letter + i}>
+          <Animated.View
+            style={{ ...styles.textContainer, opacity: this[letter + i] }}
+            key={letter + i}
+          >
             <Text style={styles.text}>
               {letter}
             </Text>
