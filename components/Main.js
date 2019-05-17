@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { Animated, View, StyleSheet } from 'react-native'
 import { LinearGradient } from 'expo'
 
 import Title from './Title.js'
@@ -34,15 +34,49 @@ export default class Main extends React.Component {
   constructor (props) {
     super(props)
     this.state = { view: 'title' }
-    this.handleClick = this.handleClick.bind(this)
+    this.mainViewOpacity = new Animated.Value(1)
+    // this.state = {
+    //   view: 'selection',
+    //   options: [
+    //     { index: 2, chapter: 'chapter2' },
+    //     { index: 2, chapter: 'chapter2' },
+    //     { index: 2, chapter: 'chapter2' },
+    //   ],
+    // }
+    this.handlePress = this.handlePress.bind(this)
+    this.fadeMainView = this.fadeMainView.bind(this)
   }
 
   componentDidMount() {
-    setTimeout(() => this.setState(storyMap[0]), 8000)
+    setTimeout(() => {
+      Animated.timing(
+        this.mainViewOpacity,
+        {
+          toValue: 0,
+          duration: 1,
+        }
+      ).start()
+      setTimeout(() => this.fadeMainView(1), 5)
+      this.setState(storyMap[0])
+    } , 8000)
   }
 
-  handleClick(storyMapIndex) {
-    this.setState(storyMap[storyMapIndex])
+  fadeMainView(opacityValue) {
+    Animated.timing(
+      this.mainViewOpacity,
+      {
+        toValue: opacityValue,
+        duration: 500,
+      }
+    ).start()
+  }
+
+  handlePress(storyMapIndex) {
+    this.fadeMainView(0)
+    setTimeout(() => {
+      this.setState(storyMap[storyMapIndex])
+      this.fadeMainView(1)
+    }, 505)
   }
 
   render () {
@@ -54,26 +88,30 @@ export default class Main extends React.Component {
           start={[0, 0]}
           end={[1, 1]}
         >
-          {this.state.view === 'title' && <Title />}
-          {this.state.view === 'reader' && (
-            <Reader
-              chapter={this.state.chapter}
-              nextView={this.state.nextView}
-              handleClick={this.handleClick}
-            />
-          )}
-          {this.state.view === 'selection' && (
-            <Selection
-              options={this.state.options}
-              handleClick={this.handleClick}
-            />
-          )}
-          {this.state.view === 'path' && (
-            <Path
-              options={this.state.options}
-              handleClick={this.handleClick}
-            />
-          )}
+          <Animated.View style={{ opacity: this.mainViewOpacity }}>
+            {this.state.view === 'title' && (
+              <Title handlePress={this.handlePress}/>
+            )}
+            {this.state.view === 'reader' && (
+              <Reader
+                chapter={this.state.chapter}
+                nextView={this.state.nextView}
+                handlePress={this.handlePress}
+              />
+            )}
+            {this.state.view === 'selection' && (
+              <Selection
+                options={this.state.options}
+                handlePress={this.handlePress}
+              />
+            )}
+            {this.state.view === 'path' && (
+              <Path
+                options={this.state.options}
+                handlePress={this.handlePress}
+              />
+            )}
+          </Animated.View>
         </LinearGradient>
       </View>
     )

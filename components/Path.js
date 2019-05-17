@@ -6,13 +6,13 @@ import text from '../TEXT.js'
 
 export default class Selection extends React.Component {
   render () {
-    const { options, handleClick } = this.props;
+    const { options, handlePress } = this.props;
     console.log(options[0])
     return (
       <View style={styles.container}>
         <View style={styles.option}>
           <ArrowButton
-            handleClick={() => handleClick(options[0].index)}
+            handlePress={() => handlePress(options[0].index)}
             alt
           />
           <Text>{text[options[0].chapter].title}</Text>
@@ -24,7 +24,7 @@ export default class Selection extends React.Component {
         </View>
         <View style={styles.option}>
           <ArrowButton
-            handleClick={() => handleClick(options[1].index)}
+            handlePress={() => handlePress(options[1].index)}
             alt
           />
           <Text>{text[options[1].chapter].title}</Text>
@@ -52,6 +52,6 @@ const styles = StyleSheet.create({
     marginRight: 50,
     height: 2,
     width: 280,
-    backgroundColor: '#000',
+    backgroundColor: 'black',
   },
 })

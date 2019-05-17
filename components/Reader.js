@@ -10,7 +10,7 @@ export default class Reader extends React.Component {
   }
 
   render () {
-    const { handleClick, nextView } = this.props;
+    const { handlePress, nextView } = this.props;
     return (
       <ScrollView
         style={styles.scroller}
@@ -23,7 +23,7 @@ export default class Reader extends React.Component {
           <Text style={styles.chapterContent}>
             {text[this.props.chapter].content}
           </Text>
-          <ArrowButton handleClick={() => handleClick(nextView)}  />
+          <ArrowButton handlePress={() => handlePress(nextView)}  />
         </View>
       </ScrollView>
     )
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   },
   chapterTitle: {
     marginTop: 120,
-    color: '#000',
+    color: 'black',
     fontSize: 18,
     fontFamily: (Platform.OS === 'ios') ? 'System' : 'sans-serif-light',
   },
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     marginVertical: 70,
     marginLeft: 30,
     marginRight: 30,
-    color: '#000',
+    color: 'black',
     fontSize: 13,
     fontFamily: (Platform.OS === 'ios') ? 'System' : 'sans-serif-light',
   }

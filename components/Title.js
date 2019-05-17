@@ -1,5 +1,5 @@
 import React from 'react'
-import { Animated, View, Text, StyleSheet, Platform } from 'react-native'
+import { TouchableWithoutFeedback, Animated, View, Text, StyleSheet, Platform } from 'react-native'
 
 export default class Title extends React.Component {
   constructor (props) {
@@ -59,7 +59,10 @@ export default class Title extends React.Component {
   }
 
   render () {
+    const { handlePress } = this.props
+
     return (
+      <TouchableWithoutFeedback onPress={() => handlePress(0)}>
       <View style={{ ...styles.backdrop }}>
         <View style={styles.row}>
         {'SWALLOWING'.split('').map((letter, i) => (
@@ -86,13 +89,14 @@ export default class Title extends React.Component {
         ))}
         </View>
       </View>
+      </TouchableWithoutFeedback>
     )
   }
 }
 
 const styles = StyleSheet.create({
   backdrop: {
-    shadowOffset: { width: 80, height: 80, },
+    shadowOffset: { width: 55, height: 65, },
     shadowColor: 'black',
     shadowOpacity: .7,
   },
@@ -103,6 +107,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textContainer: {
+    shadowOffset: { width: 80, height: 80, },
+    shadowColor: 'black',
+    shadowOpacity: .2,
     margin: 10,
   },
   text: {
