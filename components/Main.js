@@ -4,10 +4,18 @@ import { LinearGradient } from 'expo'
 
 import Title from './Title.js'
 import Reader from './Reader.js'
+import Selection from './Selection.js'
 
 const storyMap = [
-  { view: 'reader', chapter: 'chapter1', nextView: 2 }, // Index 0 = Intro Chapter
-  { view: 'selection', optionOne: 2, optionTwo: 2, optionThree: 2 }, // Index 1 = Selection 1
+  { view: 'reader', chapter: 'chapter1', nextView: 1 }, // Index 0 = Intro Chapter
+  {
+    view: 'selection',
+    options: [
+      { index: 2, chapter: 'chapter2' },
+      { index: 2, chapter: 'chapter2' },
+      { index: 2, chapter: 'chapter2' },
+    ],
+  }, // Index 1 = Selection 1
   { view: 'reader', chapter: 'chapter2', nextView: 3 }, // Index 2 = Chapter 1
   {
     view: 'path',
@@ -22,8 +30,8 @@ const storyMap = [
 export default class Main extends React.Component {
   constructor (props) {
     super(props)
-    // this.state = { view: 'title', text: 'hey' }
-    this.state = { view: 'reader', chapter: 'chapter1', nextView: 2 }
+    // this.state = { view: 'title' }
+    this.state = { view: 'reader', chapter: 'chapter1', nextView: 1 }
     this.handleClick = this.handleClick.bind(this)
   }
 
@@ -48,8 +56,14 @@ export default class Main extends React.Component {
           {this.state.view === 'reader' && (
             <Reader
               chapter={this.state.chapter}
-              handleClick={this.handleClick}
               nextView={this.state.nextView}
+              handleClick={this.handleClick}
+            />
+          )}
+          {this.state.view === 'selection' && (
+            <Selection
+              options={this.state.options}
+              handleClick={this.handleClick}
             />
           )}
         </LinearGradient>
