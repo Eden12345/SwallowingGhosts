@@ -14,7 +14,7 @@ export default class App extends React.Component {
     const { view } = this.state
     return (
       <View style={styles.container}>
-        <LinearGradient style={styles.gradient} colors={['#2d262d', '#625d63']} start={[0, 1]} end={[1, 0]}>
+        <LinearGradient style={styles.gradient} colors={['#ffffff', '#bfbfbf']} start={[0, 0]} end={[1, 1]}>
           <Welcome />
         </LinearGradient>
       </View>
@@ -27,10 +27,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#877391',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   gradient: {
     width: '100%',
-    height: '100%'
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
   }
 })
