@@ -63,32 +63,32 @@ export default class Title extends React.Component {
 
     return (
       <TouchableWithoutFeedback onPress={() => handlePress(0, true)}>
-      <View style={{ ...styles.backdrop }}>
-        <View style={styles.row}>
-        {'SWALLOWING'.split('').map((letter, i) => (
-          <Animated.View
-            style={{ ...styles.textContainer, opacity: this[letter + i] }}
-            key={letter + i}
-          >
-            <Text style={styles.text}>
-              {letter}
-            </Text>
-          </Animated.View>
-        ))}
+        <View style={{ ...styles.backdrop }}>
+          <View style={styles.row}>
+          {'SWALLOWING'.split('').map((letter, i) => (
+            <Animated.View
+              style={{ ...styles.textContainer, opacity: this[letter + i] }}
+              key={letter + i}
+            >
+              <Text style={styles.text}>
+                {letter}
+              </Text>
+            </Animated.View>
+          ))}
+          </View>
+          <View style={styles.row}>
+          {'GHOSTS'.split('').map((letter, i) => (
+            <Animated.View
+              style={{ ...styles.textContainer, opacity: this[letter + i] }}
+              key={letter + i}
+            >
+              <Text style={styles.text}>
+                {letter}
+              </Text>
+            </Animated.View>
+          ))}
+          </View>
         </View>
-        <View style={styles.row}>
-        {'GHOSTS'.split('').map((letter, i) => (
-          <Animated.View
-            style={{ ...styles.textContainer, opacity: this[letter + i] }}
-            key={letter + i}
-          >
-            <Text style={styles.text}>
-              {letter}
-            </Text>
-          </Animated.View>
-        ))}
-        </View>
-      </View>
       </TouchableWithoutFeedback>
     )
   }
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   text: {
-    color: '#fff',
+    color: 'white',
     fontSize: 18,
     fontFamily: (Platform.OS === 'ios') ? 'System' : 'sans-serif-light',
   },

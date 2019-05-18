@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     width: 20,
     borderRadius: 10,
     borderWidth: 2,
+    borderColor: (Platform.OS === 'ios') ? 'transparent' : 'white',
     borderTopColor: 'transparent',
     borderBottomColor: 'transparent',
     borderLeftColor: 'white',

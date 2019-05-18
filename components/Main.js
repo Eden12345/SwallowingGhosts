@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     shadowColor: 'black',
     shadowOpacity: .2,
     margin: 10,
-    color: '#fff',
+    color: 'white',
     fontSize: 18,
     fontFamily: (Platform.OS === 'ios') ? 'System' : 'sans-serif-light',
   }
