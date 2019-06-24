@@ -1,6 +1,7 @@
 {
   "expo": {
-    "name": "sg",
+    "name": "Swallowing Ghosts",
+    "description": "A digital interactive book. Styling is optimized for iOS. The chapters are still being written and edited, so you'll only see a demonstration of the format for now.",
     "slug": "sg",
     "privacy": "public",
     "sdkVersion": "32.0.0",
